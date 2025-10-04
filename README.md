@@ -50,6 +50,24 @@ wisecow
 
 ---
 
+
+
+---
+
+## ⚙️ Kubernetes Prerequisite: Ingress Controller Setup (If Not PResent)
+
+Before deploying the app, ensure the **NGINX Ingress Controller** is installed in your Kubernetes cluster.
+
+> This is **mandatory** for the TLS and domain-based routing to work (`https://wisecow.local`).
+
+### ✅ Install Ingress Controller (only once per cluster):
+
+```bash
+kubectl create namespace ingress-nginx
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
+```
+
 ## How to Build and Run Locally (Docker)
 
 1. Clone Repo:
