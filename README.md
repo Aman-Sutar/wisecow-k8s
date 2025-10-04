@@ -33,7 +33,7 @@ This repository contains the Wisecow application — a fun web server that combi
 ## Repository Structure
 
 ```
-wisecow
+wisecow-k8s
 ├── Dockerfile
 ├── k8s/
 │   ├── deployment.yaml
@@ -54,19 +54,7 @@ wisecow
 
 ---
 
-## ⚙️ Kubernetes Prerequisite: Ingress Controller Setup (If Not PResent)
 
-Before deploying the app, ensure the **NGINX Ingress Controller** is installed in your Kubernetes cluster.
-
-> This is **mandatory** for the TLS and domain-based routing to work (`https://wisecow.local`).
-
-### ✅ Install Ingress Controller (only once per cluster):
-
-```bash
-kubectl create namespace ingress-nginx
-
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
-```
 
 ## How to Build and Run Locally (Docker)
 
@@ -99,7 +87,18 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ## How to Deploy on Kubernetes
 
-1. Make sure you have a Kubernetes cluster running (Minikube, Kind, Docker Desktop Kubernetes, etc.)
+  1. Make sure you have a Kubernetes cluster running (Minikube, Kind, Docker Desktop Kubernetes, etc.)
+  
+  > ⚙️ Kubernetes Prerequisite: Ingress Controller Setup (If Not PResent)
+  Before deploying the app, ensure the **NGINX Ingress Controller** is installed in your Kubernetes cluster.
+  > This is **mandatory** for the TLS and domain-based routing to work (`https://wisecow.local`).
+  
+✅ Install Ingress Controller (only once per cluster):
+```bash
+kubectl create namespace ingress-nginx
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
+```
 
 2. Create the TLS secret (using your own cert and key files):
 
