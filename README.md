@@ -56,7 +56,7 @@ wisecow
 
    ```bash
    git clone https://github.com/dodelaw332/wisecow-k8s.git
-   cd wisecow
+   cd wisecow-k8s
    ```
 
 1. Build Docker image:
