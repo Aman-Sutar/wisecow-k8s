@@ -7,29 +7,10 @@ This repository contains the Wisecow application — a fun web server that combi
 
 ---
 
-## Original Application
 
-### Prerequisites
-```bash
-sudo apt install fortune-mod cowsay -y
-````
+## Output
 
-### How to use?
-
-```bash
-./wisecow.sh
-```
-
-Then open your browser and visit:
-
-```
-http://localhost:4499
-```
-
-### What to expect?
-
-![wisecow](https://github.com/nyrahul/wisecow/assets/9133227/8d6bfde3-4a5a-480e-8d55-3fef60300d98)
-
+<img alt="image" src="https://github.com/user-attachments/assets/16c2a046-05d7-453a-8c3b-c7d3555a2830" />
 
 
 ---
@@ -52,7 +33,7 @@ http://localhost:4499
 ## Repository Structure
 
 ```
-.
+wisecow
 ├── Dockerfile
 ├── k8s/
 │   ├── deployment.yaml
@@ -70,6 +51,13 @@ http://localhost:4499
 ---
 
 ## How to Build and Run Locally (Docker)
+
+1. Clone Repo:
+
+   ```bash
+   git clone https://github.com/dodelaw332/wisecow-k8s.git
+   cd wisecow
+   ```
 
 1. Build Docker image:
 
