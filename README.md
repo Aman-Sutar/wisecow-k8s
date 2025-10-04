@@ -1,28 +1,179 @@
-# Cow wisdom web server
 
-## Prerequisites
 
-```
+# Cow Wisdom Web Server (Wisecow)
+
+## Overview
+This repository contains the Wisecow application — a fun web server that combines the classic *fortune* and *cowsay* commands. This project containerizes the app and deploys it on a Kubernetes cluster with secure TLS communication and an automated CI/CD pipeline.
+
+---
+
+## Original Application
+
+### Prerequisites
+```bash
 sudo apt install fortune-mod cowsay -y
+````
+
+### How to use?
+
+```bash
+./wisecow.sh
 ```
 
-## How to use?
+Then open your browser and visit:
 
-1. Run `./wisecow.sh`
-2. Point the browser to server port (default 4499)
+```
+http://localhost:4499
+```
 
-## What to expect?
+### What to expect?
+
 ![wisecow](https://github.com/nyrahul/wisecow/assets/9133227/8d6bfde3-4a5a-480e-8d55-3fef60300d98)
 
-# Problem Statement
-Deploy the wisecow application as a k8s app
 
-## Requirement
-1. Create Dockerfile for the image and corresponding k8s manifest to deploy in k8s env. The wisecow service should be exposed as k8s service.
-2. Github action for creating new image when changes are made to this repo
-3. [Challenge goal]: Enable secure TLS communication for the wisecow app.
 
-## Expected Artifacts
-1. Github repo containing the app with corresponding dockerfile, k8s manifest, any other artifacts needed.
-2. Github repo with corresponding github action.
-3. Github repo should be kept private and the access should be enabled for following github IDs: nyrahul
+---
+
+## Problem Statement 1: Containerization and Kubernetes Deployment with TLS
+
+### Requirements
+
+1. Dockerize the Wisecow app.
+2. Deploy on Kubernetes with manifests (Deployment, Service, Ingress).
+3. Expose the app as a Kubernetes service.
+4. Implement TLS to secure communication.
+5. Setup a GitHub Actions CI/CD workflow to:
+
+   * Build and push Docker image on code changes.
+
+
+---
+
+## Repository Structure
+
+```
+.
+├── Dockerfile
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── tls-ingress.yaml
+│   ├── tls.crt        # TLS certificate (self-signed or generated)
+│   ├── tls.key        # TLS private key
+├── .github/
+│   └── workflows/
+│       └── docker-publish.yml     # GitHub Actions workflow
+├── wisecow.sh         # Wisecow app script
+├── README.md
+```
+
+---
+
+## How to Build and Run Locally (Docker)
+
+1. Build Docker image:
+
+   ```bash
+   docker build -t boxone123/wisecow:latest .
+   ```
+
+2. Run container locally (optional for testing):
+
+   ```bash
+   docker run -p 4499:4499 boxone123/wisecow:latest
+   ```
+
+3. Access the app at:
+
+   ```
+   http://localhost:4499
+   ```
+
+---
+
+## How to Deploy on Kubernetes
+
+1. Make sure you have a Kubernetes cluster running (Minikube, Kind, Docker Desktop Kubernetes, etc.)
+
+2. Create the TLS secret (using your own cert and key files):
+
+   ```bash
+   kubectl create secret tls wisecow-tls --cert=k8s/tls.crt --key=k8s/tls.key
+   ```
+
+3. Apply Kubernetes manifests:
+
+   ```bash
+   kubectl apply -f k8s/deployment.yaml
+   kubectl apply -f k8s/service.yaml
+   kubectl apply -f k8s/tls-ingress.yaml
+   ```
+
+4. Add the following entry to your local `/etc/hosts` file to access the app using the TLS hostname:
+
+   ```
+   127.0.0.1 wisecow.local
+   ```
+
+5. Access the app securely at:
+
+   ```
+   https://wisecow.local
+   ```
+
+---
+
+## Notes on TLS
+
+* TLS certificates included are self-signed and intended for local testing.
+* For production, replace with certificates from a trusted CA or use cert-manager in Kubernetes.
+
+---
+
+## CI/CD Pipeline (GitHub Actions)
+
+* The workflow `/.github/workflows/docker-publish.yml`:
+
+  * Builds and pushes Docker image on every push to the repo.
+ 
+---
+
+## Testing Instructions
+
+To test the deployment and functionality:
+
+1. Clone the repo.
+2. Build and push Docker image or pull the existing one from Docker Hub.
+3. Set up Kubernetes cluster (Minikube/Kind/Docker Desktop).
+4. Create TLS secret as per instructions.
+5. Deploy manifests with `kubectl apply`.
+6. Update `/etc/hosts` with `wisecow.local` pointing to the cluster IP (usually localhost for local clusters).
+7. Access `https://wisecow.local` in the browser to verify the app works with TLS.
+8. Optionally, review GitHub Actions workflow runs to confirm Docker images are built and pushed.
+
+---
+
+## Troubleshooting
+
+* If you get 404 errors, verify the ingress paths and service ports.
+* Ensure TLS secret matches the hostname in ingress.
+* For local Kubernetes, check that ingress controller is installed and running.
+* Use `kubectl get pods,svc,ingress` to check resource statuses.
+
+---
+
+## License
+
+This project is provided as-is for assessment purposes.
+
+---
+
+## Author
+
+Aman-Sutar
+
+---
+
+*Thank you for reviewing my submission!*
+
+```
