@@ -56,7 +56,7 @@ wisecow-k8s
 
 
 
-## How to Build and Run Locally (Docker)
+## To Build and Run Locally (Docker)
 
 1. Clone Repo:
 
@@ -85,7 +85,7 @@ wisecow-k8s
 
 ---
 
-## How to Deploy on Kubernetes
+## To Deploy on Kubernetes
 
   1. Make sure you have a Kubernetes cluster running (Minikube, Kind, Docker Desktop Kubernetes, etc.)
   
