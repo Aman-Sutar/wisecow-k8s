@@ -61,7 +61,7 @@ wisecow-k8s
 1. Clone Repo:
 
    ```bash
-   git clone https://github.com/dodelaw332/wisecow-k8s.git
+   git clone https://github.com/Aman-Sutar/wisecow-k8s.git
    cd wisecow-k8s
    ```
 
